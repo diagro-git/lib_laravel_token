@@ -2,7 +2,7 @@
     "name": "diagro/lib_laravel_token",
     "description": "Library for Laravel applications to encode/decode Diagro tokens",
     "type": "library",
-    "version": "1.0.0",○
+    "version": "1.0.0",
     "require": {
         "php": "^8.0",
         "laravel/framework": "v8.67.0",
