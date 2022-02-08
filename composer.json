@@ -1,0 +1,27 @@
+{
+    "name": "diagro/token",
+    "description": "Token library for Diagro tokens",
+    "type": "library",
+    "version": "1.0.34",
+    "require": {
+        "php": "^8.0",
+        "laravel/framework": "v8.67.0",
+        "firebase/php-jwt": "v5.4.0",
+        "ext-openssl" : "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "9.5.10"
+    },
+    "license": "Diagro",
+    "autoload": {
+        "psr-4": {
+            "Diagro\\Token\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Stijn Leenknegt",
+            "email": "stijn@diagro.be"
+        }
+    ]
+}
