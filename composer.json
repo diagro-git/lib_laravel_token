@@ -1,6 +1,6 @@
 {
-    "name": "diagro/token",
-    "description": "Token library for Diagro tokens",
+    "name": "diagro/lib_laravel_token",
+    "description": "Library for Laravel applications to encode/decode Diagro tokens",
     "type": "library",
     "version": "1.0.34",
     "require": {
