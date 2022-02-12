@@ -11,9 +11,11 @@ trait HasDiagroToken
 
 
     /**
-     * Determine if the user has the permission.
+     * Determine if the user has the ability or abilities for given permission(s).
+     * You can use permissions from other applications also.
+     * Just use <appName>.<rightName> instead of <rightName>.
      *
-     * @param iterable|string $abilities The abilities the users can do in permission (['read', ....] or 'read')
+     * @param iterable|string $abilities The abilities the users can do in permission (['read', 'create', ...] or 'read')
      * @param array|mixed $arguments The permission or permissions.
      * @return bool
      */
@@ -34,8 +36,10 @@ trait HasDiagroToken
                 }
             } else {
                 foreach ($this->applications as $application) {
-                    $able = $this->checkApplication($application, $abilities, $arguments);
-                    $can = ($can === false ? (false || $able) : (true && $able));
+                    if($application->hasPermission($arguments)) {
+                        $able = $this->checkApplication($application, $abilities, $arguments);
+                        $can = ($can === false ? (false || $able) : (true && $able));
+                    }
                 }
             }
         }
@@ -45,7 +49,7 @@ trait HasDiagroToken
 
 
     /**
-     * Check if arguments for ability in the application.
+     * Check if given ability or abilities is allowed for given permission from an application.
      *
      * @param Application $application
      * @param $abilities
@@ -61,28 +65,26 @@ trait HasDiagroToken
 
         foreach($abilities as $ability) {
             $firstChar = strtolower(substr($ability, 0, 1));
-            if ($application->hasPermission($permission)) {
-                $p = $application->permissions()[$permission];
-                switch ($firstChar) {
-                    case 'r':
-                        $can = $can === false ? (false || $p->read) : (true && $p->read);
-                        break;
-                    case 'c':
-                        $can = $can === false ? (false || $p->create) : (true && $p->create);
-                        break;
-                    case 'u':
-                        $can = $can === false ? (false || $p->update) : (true && $p->update);
-                        break;
-                    case 'd':
-                        $can = $can === false ? (false || $p->delete) : (true && $p->delete);
-                        break;
-                    case 'p':
-                        $can = $can === false ? (false || $p->publish) : (true && $p->publish);
-                        break;
-                    case 'e':
-                        $can = $can === false ? (false || $p->export) : (true && $p->export);
-                        break;
-                }
+            $p = $application->permissions()[$permission];
+            switch ($firstChar) {
+                case 'r':
+                    $can = $can === false ? (false || $p->read) : (true && $p->read);
+                    break;
+                case 'c':
+                    $can = $can === false ? (false || $p->create) : (true && $p->create);
+                    break;
+                case 'u':
+                    $can = $can === false ? (false || $p->update) : (true && $p->update);
+                    break;
+                case 'd':
+                    $can = $can === false ? (false || $p->delete) : (true && $p->delete);
+                    break;
+                case 'p':
+                    $can = $can === false ? (false || $p->publish) : (true && $p->publish);
+                    break;
+                case 'e':
+                    $can = $can === false ? (false || $p->export) : (true && $p->export);
+                    break;
             }
         }
 
@@ -105,96 +107,96 @@ trait HasDiagroToken
     /**
      * Check if has read scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canRead($abilities)
+    public function canRead($permissions)
     {
-        return $this->can($abilities, 'r');
+        return $this->can('read',$permissions);
     }
 
 
     /**
      * Check if has create scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canCreate($abilities)
+    public function canCreate($permissions)
     {
-        return $this->can($abilities, 'c');
+        return $this->can('create', $permissions);
     }
 
 
     /**
      * Check if has update scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canUpdate($abilities)
+    public function canUpdate($permissions)
     {
-        return $this->can($abilities, 'u');
+        return $this->can('update', $permissions);
     }
 
 
     /**
      * Check if has delete scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canDelete($abilities)
+    public function canDelete($permissions)
     {
-        return $this->can($abilities, 'd');
+        return $this->can('delete', $permissions);
     }
 
 
     /**
      * Check if has publish scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canPublish($abilities)
+    public function canPublish($permissions)
     {
-        return $this->can($abilities, 'p');
+        return $this->can('publish', $permissions);
     }
 
 
     /**
      * Check if has export scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canExport($abilities)
+    public function canExport($permissions)
     {
-        return $this->can($abilities, 'e');
+        return $this->can('export', $permissions);
     }
 
 
     /**
      * Check if has create,read,update or delete scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canCRUD($abilities)
+    public function canCRUD($permissions)
     {
-        return $this->can($abilities, 'crud');
+        return $this->can(['c','r','u','d'],$permissions);
     }
 
 
     /**
      * Check if has update or create scope on a permission(s).
      *
-     * @param $abilities
+     * @param $permissions
      * @return bool
      */
-    public function canWrite($abilities)
+    public function canWrite($permissions)
     {
-        return $this->can($abilities, 'cu');
+        return $this->can(['c', 'u'],$permissions);
     }
 
 

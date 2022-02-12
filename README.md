@@ -22,6 +22,11 @@ in Laravel framework.
 
 ## Changelog
 
+### V1.1
+
+* **Bugfix**: HasDiagroToken trait had foute logica in de **can** methode.
+* **Feature**: Unit test added
+
 ### V1.0
 
 * **Feature**: decode en encode access tokens
