@@ -14,11 +14,11 @@ in Laravel framework.
 
 ## Development
 
-* Composer: `diagro/lib_laravel_token: "^1.0"`
+* Composer: `diagro/lib_laravel_token: "^1.2"`
 
 ## Production
 
-* Composer: `diagro/lib_laravel_token: "^1.0"`
+* Composer: `diagro/lib_laravel_token: "^1.2"`
 
 ## Changelog
 
