@@ -22,6 +22,10 @@ in Laravel framework.
 
 ## Changelog
 
+### V1.2
+
+* **Feature**: upgrade naar PHP8.1 en Laravel 9.0
+
 ### V1.1
 
 * **Bugfix**: HasDiagroToken trait had foute logica in de **can** methode.
