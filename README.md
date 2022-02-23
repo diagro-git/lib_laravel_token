@@ -1,4 +1,4 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://diagro.be/assets/img/diagro-logo.svg" width="400"></a></p>
+<p align="center"><a href="https://www.diagro.be" target="_blank"><img src="https://diagro.be/assets/img/diagro-logo.svg" width="400"></a></p>
 
 <p align="center">
 <img src="https://img.shields.io/badge/project-lib_laravel_token-yellowgreen" alt="Diagro token library">
@@ -14,13 +14,17 @@ in Laravel framework.
 
 ## Development
 
-* Composer: `diagro/lib_laravel_token: "^1.2"`
+* Composer: `diagro/lib_laravel_token: "^1.3"`
 
 ## Production
 
-* Composer: `diagro/lib_laravel_token: "^1.2"`
+* Composer: `diagro/lib_laravel_token: "^1.3"`
 
 ## Changelog
+
+### V1.3
+
+* **Bugfix**: iat en nbf bugfix
 
 ### V1.2
 
