@@ -125,11 +125,8 @@ abstract class Token
      */
     protected function createToken(): string
     {
-        $time = time();
         $payload = $this->payload();
-        $payload['iat'] = $time - 1;
-        $payload['nbf'] = $time - 1;
-        $payload['exp'] = $time + $this->lifetime();
+        $payload['exp'] = time() + $this->lifetime();
         $payload['iss'] = $this->issuer();
         $payload['device'] = $this->device();
 
