@@ -81,9 +81,9 @@ abstract class Token
     private string $device;
 
     /**
-     * @var string|null Cache generated token
+     * @var string|null Cache generated token or the token which is generated from
      */
-    protected ?string $generated_token;
+    public ?string $generated_token;
 
 
     /**
@@ -167,7 +167,9 @@ abstract class Token
         $publicKey = self::$public_key;
         $decoded = JWT::decode($token, $publicKey, ['RS256']);
 
-        return static::decode($decoded);
+        $obj = static::decode($decoded);
+        $obj->generated_token = $token;
+        return $obj;
     }
 
 

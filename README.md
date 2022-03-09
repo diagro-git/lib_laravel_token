@@ -14,13 +14,17 @@ in Laravel framework.
 
 ## Development
 
-* Composer: `diagro/lib_laravel_token: "^1.3"`
+* Composer: `diagro/lib_laravel_token: "^1.4"`
 
 ## Production
 
-* Composer: `diagro/lib_laravel_token: "^1.3"`
+* Composer: `diagro/lib_laravel_token: "^1.4"`
 
 ## Changelog
+
+### V1.4
+
+* **Bugfix**: cache token wanneer createfromtoken is called.
 
 ### V1.3
 
