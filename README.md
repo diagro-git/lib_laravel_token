@@ -22,6 +22,10 @@ in Laravel framework.
 
 ## Changelog
 
+### V1.5
+
+* **Feature**: Token for backend applications.
+
 ### V1.4
 
 * **Bugfix**: cache token wanneer createfromtoken is called.
