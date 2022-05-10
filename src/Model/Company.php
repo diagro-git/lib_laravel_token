@@ -75,7 +75,7 @@ class Company implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return ['id' => $this->id(), 'name' => $this->name(), 'country' => $this->country(), 'currency' => $this->currency()];
     }

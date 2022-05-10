@@ -151,7 +151,7 @@ class Permission implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $str = '';
         if($this->read === true) $str .= 'r';

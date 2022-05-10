@@ -92,7 +92,7 @@ class Application implements JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         return ['id' => $this->id(), 'name' => $this->name(), 'permissions' => $this->permissions()];
     }

@@ -251,7 +251,7 @@ class User implements Authenticatable, Authorizable, JsonSerializable
     /**
      * @inheritDoc
      */
-    public function jsonSerialize()
+    public function jsonSerialize(): mixed
     {
         $array = ['id' => $this->id(), 'name' => $this->name(), 'locale' => $this->locale(), 'lang' => $this->lang(), 'timezone' => $this->timezone()];
         if(!empty($role = $this->role())) $array['role'] = $role;
