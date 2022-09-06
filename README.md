@@ -7,44 +7,13 @@
 <img src="https://img.shields.io/badge/laravel-9.0-red" alt="Laravel framework">
 </p>
 
-## Beschrijving
+## Description
 
-Deze bibliotheek is nodig om de AT en AAT tokens te maken en te decoderen voor alle backend en frontend applicaties gemaakt
-in Laravel framework.
+This library contains the token classes (AT, AAT and BAT) that are used in the backend and frontend applications that use the Laravel framework.
+The base class is `Token` and you should put your own OpenSSL public/private key in there with a passphrase.
 
-## Development
+The child token classes only specify their payload.
 
-* Composer: `diagro/lib_laravel_token: "^1.4"`
+## Installation
 
-## Production
-
-* Composer: `diagro/lib_laravel_token: "^1.4"`
-
-## Changelog
-
-### V1.5
-
-* **Feature**: Token for backend applications.
-
-### V1.4
-
-* **Bugfix**: cache token wanneer createfromtoken is called.
-
-### V1.3
-
-* **Bugfix**: iat en nbf bugfix
-
-### V1.2
-
-* **Feature**: upgrade naar PHP8.1 en Laravel 9.0
-
-### V1.1
-
-* **Bugfix**: HasDiagroToken trait had foute logica in de **can** methode.
-* **Feature**: Unit test added
-
-### V1.0
-
-* **Feature**: decode en encode access tokens
-* **Feature**: decode en encode application access tokens
-* **Feature**: decoden geeft een user object terug met company, applications en access rights
+* Composer: `diagro/lib_laravel_token: "^1.6"`

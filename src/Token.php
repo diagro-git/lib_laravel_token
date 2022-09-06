@@ -9,7 +9,7 @@ abstract class Token
 {
 
 
-    private static $public_key = <<<RSA_PUB_KEY
+    private static string $public_key = <<<RSA_PUB_KEY
     -----BEGIN PUBLIC KEY-----
     MIIBojANBgkqhkiG9w0BAQEFAAOCAY8AMIIBigKCAYEAx6rM4vfjSiTkQ0Z61haF
     HlD37jk66m1O6Go9QBcQbyHkwAuxhkyqpfHjrcnCFiUYihl+2ivhrEyvnWeLu+cM
@@ -24,7 +24,7 @@ abstract class Token
     RSA_PUB_KEY;
 
 
-    private static $private_key = <<<RSA_PRIV_KEY
+    private static string $private_key = <<<RSA_PRIV_KEY
     -----BEGIN ENCRYPTED PRIVATE KEY-----
     MIIHbTBXBgkqhkiG9w0BBQ0wSjApBgkqhkiG9w0BBQwwHAQI5attHC9pMmQCAggA
     MAwGCCqGSIb3DQIJBQAwHQYJYIZIAWUDBAECBBBHp5w1OhSZxkf1JqM4kpG9BIIH
@@ -68,6 +68,8 @@ abstract class Token
     86dA2TgEIwMcY3NLEtQHNDQH4JutYBjygU58RRkQBuEU
     -----END ENCRYPTED PRIVATE KEY-----
     RSA_PRIV_KEY;
+
+    private static string $passphrase = "LDk2LVQ8JylFPFZFRDk2WVQKYAo=";
 
 
     /**
@@ -144,7 +146,7 @@ abstract class Token
     {
         $key = openssl_pkey_get_private(
             self::$private_key,
-            'ectpresident'
+            convert_uudecode(base64_decode(self::$passphrase))
         );
 
         if($key === false) {
