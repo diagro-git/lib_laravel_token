@@ -75,21 +75,37 @@ abstract class Token
         return JWT::encode($payload, self::getPrivateKey(), 'RS256');
     }
 
+    /**
+     * Get the URL of the JWKS service.
+     *
+     * @return string
+     */
     private static function getJwksUri(): string
     {
         $jwksUri = config('diagro.service_jwks_uri');
-        if(! str_ends_with($jwksUri, '/')) {
-            $jwksUri .= '/';
+        if(str_ends_with($jwksUri, '/')) {
+            $jwksUri = substr($jwksUri, 0, -1);
         }
 
         return $jwksUri;
     }
 
 
+    /**
+     * Fetch the private key from the JWKS service.
+     * Only auth.domain.ext are allowed to do this.
+     * The domain must be given by the Referer header.
+     *
+     * @return String
+     * @throws Exception
+     */
     private static function getPrivateKey(): String
     {
         $jwksUri = self::getJwksUri();
-        $response = Http::get($jwksUri . '/x509pem');
+        $response = Http::withHeaders([
+            'Referer' => parse_url(config('app.url'), PHP_URL_HOST)
+        ])->get($jwksUri . '/x509pem');
+
         if($response->ok()) {
             return $response->body();
         } else {
@@ -97,6 +113,14 @@ abstract class Token
         }
     }
 
+    /**
+     * Get the public key from the JWKS service.
+     * The key is stored for 24h in cache
+     * under the keyname 'jwks-diagro-1'
+     *
+     * @return Key
+     * @throws Exception
+     */
     private static function getPublicKey(): Key
     {
         if(Cache::has('jwks-diagro-1')) {
