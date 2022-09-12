@@ -124,19 +124,19 @@ abstract class Token
     private static function getPublicKey(): Key
     {
         if(Cache::has('jwks-diagro-1')) {
-            return Cache::get('jwks-diagro-1');
-        }
-
-        $jwksUri = self::getJwksUri();
-        $response = Http::get($jwksUri . '/jwks');
-        if($response->ok()) {
-            $key = JWK::parseKeySet($response->json())['diagro-1'];
-            Cache::put('jwks-diagro-1', $key, 86400); //one day
-
-            return $key;
+            $keyset = Cache::get('jwks-diagro-1');
         } else {
-            throw new Exception("HTTP status: {$response->status()}, Body: {$response->body()}");
+            $jwksUri = self::getJwksUri();
+            $response = Http::get($jwksUri . '/jwks');
+            if($response->ok()) {
+                $keyset = $response->json();
+                Cache::put('jwks-diagro-1', $keyset, 86400); //one day
+            } else {
+                throw new Exception("HTTP status: {$response->status()}, Body: {$response->body()}");
+            }
         }
+
+        return JWK::parseKeySet($keyset)['diagro-1'];
     }
 
 
